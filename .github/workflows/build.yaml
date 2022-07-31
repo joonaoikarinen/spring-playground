@@ -33,3 +33,11 @@ jobs:
         env:
           DOCKER_USER: ${{ secrets.DOCKER_USER }}
         run: docker build -t "$DOCKER_USER"/"$REPO_NAME":latest .
+
+      - name: Docker publish
+        env:
+          DOCKER_USER: ${{ secrets.DOCKER_USER }}
+          DOCKER_TOKEN:  ${{ secrets.DOCKER_TOKEN }}
+        run: |
+          echo "$DOCKER_TOKEN"|docker login -u "$DOCKER_USER" --password-stdin
+          docker push "$DOCKER_USER"/"$REPO_NAME":latest
