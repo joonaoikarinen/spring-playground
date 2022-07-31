@@ -5,6 +5,9 @@ name: Maven Package
 
 on: [push]
 
+env:
+  REPO_NAME: spring-playground
+
 jobs:
   build:
 
@@ -29,4 +32,4 @@ jobs:
       - name: Docker build
         env:
           DOCKER_USER: ${{ secrets.DOCKER_USER }}
-        run: docker build -t "$DOCKER_USER"/${{ github.repository }}:latest .
+        run: docker build -t "$DOCKER_USER"/"$REPO_NAME":latest .
